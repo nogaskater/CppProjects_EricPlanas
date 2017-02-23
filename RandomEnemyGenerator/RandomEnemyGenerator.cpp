@@ -3,8 +3,15 @@
 #include "stdafx.h"
 #include <string>
 #include <iostream>
-#include <time.h>
-enum class EnemyType {zombie, vampire, ghost, witch};
+#include <ctime>
+enum class EnemyType 
+{
+	zombie,
+	vampire,
+	ghost,
+	witch,
+	max // Util para definir el final de la class
+};
 
 struct Enemy
 {
@@ -13,23 +20,19 @@ struct Enemy
 	int health;
 };
 
-bool operator == (Enemy enemy1, Enemy enemy2)
+bool operator == (const Enemy &enemy1, const Enemy &enemy2) // Se usa el const para evitar modificar el contenido(only-read) // se usa el ampersan para no crear una variable nueva, simplemente acceder a la existente
 {
-	if (enemy1.name == enemy2.name && enemy1.type == enemy2.type)
-	{
-		return true;
-	}
-	else
-		return false;
+	return enemy1.name == enemy2.name && enemy1.type == enemy2.type;
 }
 
 Enemy CreateRandomEnemy()
 {
-	std::string names[] {"Isaaac", "Johny", "Jennifer", "Amador", "Harambee"};
+	const int MAX_LIFE{ 500 };
+	std::string NAMES[] {"Isaaac", "Johny", "Jennifer", "Amador", "Harambee"};
 
+	EnemyType enemyType{ EnemyType(rand() % 4) };
 	int health = (rand() % 10) + 1;
-	std::string enemyName = names[rand() % 5];
-	EnemyType enemyType{EnemyType(rand() % 4)};
+	std::string enemyName = NAMES[rand() % 5];
 
 	return{enemyType, enemyName, health};
 
@@ -50,19 +53,26 @@ std::string GetEnemyTypeString(EnemyType enemyType)
 	return type;
 }
 
-const int maxEnemies = 5;
-Enemy enemies[maxEnemies]{};
+
+
 void main()
 {
 	srand(time(nullptr));
+	const int maxEnemies = 5;
+	Enemy enemies[maxEnemies]{};
 	std::cout << "List of enemies:\n\n";
-	for (int i{ 0 }; i < 5; i++)
+	for (int i{ 0 }; i < maxEnemies; i++)
 	{
 		enemies[i] = CreateRandomEnemy();
-		while (enemies[i] == enemies[i - 1])
+		for (int j{ i }; j > 0; j--)
 		{
-			enemies[i] = CreateRandomEnemy();
+			while (enemies[i] == enemies[j])
+			{
+				enemies[i] = CreateRandomEnemy();
+			}
+
 		}
+		
 	}
 
 	for (int i{ 0 }; i < 5; i++)
