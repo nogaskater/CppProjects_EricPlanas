@@ -26,19 +26,48 @@ bool operator == (Enemy enemy1, Enemy enemy2)
 Enemy CreateRandomEnemy()
 {
 	std::string names[] {"Isaaac", "Johny", "Jennifer", "Amador", "Harambee"};
-	srand(time(nullptr));
 
-	int h = rand() % 9 + 1;
-	std::string enemyName = names[rand() % (5)];
+	int health = (rand() % 10) + 1;
+	std::string enemyName = names[rand() % 5];
 	EnemyType enemyType{EnemyType(rand() % 4)};
 
-	return{enemyType, enemyName, h};
+	return{enemyType, enemyName, health};
 
 }
 
-int main()
+std::string GetEnemyTypeString(EnemyType enemyType)
 {
-	CreateRandomEnemy();
-    return 0;
+	std::string type;
+	if (enemyType == EnemyType::ghost)
+		type = "ghost";
+	else if (enemyType == EnemyType::vampire)
+		type = "vampire";
+	else if (enemyType == EnemyType::witch)
+		type = "witch";
+	else if (enemyType == EnemyType::zombie)
+		type = "zombie";
+
+	return type;
+}
+
+const int maxEnemies = 5;
+Enemy enemies[maxEnemies]{};
+void main()
+{
+	srand(time(nullptr));
+	std::cout << "List of enemies:\n\n";
+	for (int i{ 0 }; i < 5; i++)
+	{
+		enemies[i] = CreateRandomEnemy();
+		while (enemies[i] == enemies[i - 1])
+		{
+			enemies[i] = CreateRandomEnemy();
+		}
+	}
+
+	for (int i{ 0 }; i < 5; i++)
+	{
+		std::cout << enemies[i].name << " is a " << GetEnemyTypeString(enemies[i].type) << " that has " << enemies[i].health << " health." << std::endl;
+	}
 }
 
