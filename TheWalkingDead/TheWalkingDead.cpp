@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+
+
 enum class Weapon
 {
 	FISTS,
@@ -24,16 +26,12 @@ public:
 	int life;
 
 	Player() :weapon{ static_cast<Weapon>(rand() % static_cast<int>(Weapon::MAX)) }, precision{(0.1f*(rand() % 10)) }, life{ (rand() % 50) + 51 } {};
+	Player(Weapon t_weapon, float t_precision, int t_life) :weapon{ t_weapon }, precision{ t_precision }, life{ t_life } {};
 	~Player() {};
 
 	void attack(Zombie &z);
 
-	bool isAlive()
-	{
-		return life > 0;
-	}
-
-
+	bool isAlive();
 };
 
 class Zombie
@@ -46,27 +44,35 @@ public:
 
 	Zombie() :distanceToPlayer{ (rand() & 180) + 20.0f }, speed{ static_cast<float>(0.1f*(rand() % 200)) }, damage{ static_cast<float>(0.1f*(rand() % 200)) }, life{ (rand() % 10) + 1 } {};
 	~Zombie() {};
-	void attack(Player &p)
-	{
-		if (distanceToPlayer <= 0)
-		{
-			p.life -= damage;
-		}
-		else
-		{
-			distanceToPlayer -= speed;
-		}
-	}
 
-	bool isAlive()
-	{
-		return life > 0;
-	}
+	void attack(Player &p);
+
+	bool isAlive();
 };
 
 void Player::attack(Zombie &z)
 {
 	z.life -= static_cast<int>(weapon) * precision;
+}
+bool Player::isAlive()
+{
+	return life > 0;
+}
+
+void Zombie::attack(Player &p)
+{
+	if (distanceToPlayer <= 0)
+	{
+		p.life -= damage;
+	}
+	else
+	{
+		distanceToPlayer -= speed;
+	}
+}
+bool Zombie::isAlive()
+{
+	return life > 0;
 }
 
 void main()
