@@ -24,7 +24,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DynArray.hh">
+    <ClInclude Include="a.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="b.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,10 +35,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DynArray.cc">
+    <ClCompile Include="Testing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DynArrayMain.cpp">
+    <ClCompile Include="a.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="b.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

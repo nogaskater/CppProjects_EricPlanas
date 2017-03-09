@@ -42,3 +42,38 @@ void DynArray::fill(int *first, int *last, int value)
 		first++;
 	}
 }
+
+void DynArray::push(const int &val)
+{
+	if (m_size < m_capacity)
+	{
+		//m_data[m_size] = val;
+		*(m_data + m_size) = val;
+	}
+	else
+	{
+		int *m_data_provisional{ new int[m_capacity + 1]};
+
+		for (int i{ 0 }; i < m_size; i++)
+		{
+			*(m_data_provisional + i) = *(m_data + i);
+		}
+		
+		*(m_data_provisional + m_size) = val;
+
+		delete[] m_data;
+		m_data = m_data_provisional;
+		m_capacity++;
+	}
+		m_size++;
+
+}
+
+void DynArray::print()
+{
+	for (int i{ 0 }; i < m_size; i++)
+	{
+		std::cout << *(m_data + i) << std::endl;
+
+	}
+}
