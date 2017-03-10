@@ -11,7 +11,7 @@ public:
 	//DynArray(int *arr, size_t size);									// initializes each element from an external array
 
 	//																	// destructor
-	//~DynArray(void);													// deletes the memory in the Heap
+	~DynArray(void);													// deletes the memory in the Heap
 
 																		// assignment operators
 	//DynArray& operator= (const DynArray &x);							// copies all the attributes from x to this object
@@ -57,20 +57,21 @@ public:
 																		// input/output operators
 	//friend std::ostream& operator<< (std::ostream &out, const DynArray &x); // prints out the contents of the array object
 
-	void print();
+	void printArray();
+	void printArray(int positionArray);
 
 private:
 	// static constants
 	static const size_t DYN_ARRAY_DEFAULT_SIZE{ 8 };					// initial constant size of the array memory
-	static const size_t DYN_ARRAY_MAX_SIZE{ 1073741823 };			// maximum constant size that the array memory can hold
+	static const size_t DYN_ARRAY_MAX_SIZE{ 1073741823 };				// maximum constant size that the array memory can hold
 
-																	// attributes
+																		// attributes
 	size_t	m_capacity;													// actual size of the allocated memory
 	size_t  m_size;														// current number of elements in the array
 	int	   *m_data;														// pointer to the memory allocated in the Heap
 
 																		// utils methods
 	//static const size_t& min(const size_t &lhs, const size_t &rhs);	// returns the smaller size of lhs and rhs
-	static void fill(int *first, int *last, int value);		// assigns the given value to the elements in the range [first, last)
-	//static void copy(int *first, int *last, int *dest);		// copies all elements in the range [first, last) to dest
+	static void fill(int *first, int *last, int value);					// assigns the given value to the elements in the range [first, last)
+	//static void copy(int *first, int *last, int *dest);				// copies all elements in the range [first, last) to dest
 };
